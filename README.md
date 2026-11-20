@@ -55,7 +55,7 @@ AI-PDF-to-CSV-Automation/
     └── Performance_Benchmark.csv
 ```
 
-The notebook and CSV exports will be added after the project files are uploaded.
+The notebook file is retained as a separate upload step; the CSV exports and supporting documentation are already committed. Add the notebook at `notebooks/AI_PDF_to_CSV_Automation.ipynb` to complete the repository.
 
 ## How to explore
 
