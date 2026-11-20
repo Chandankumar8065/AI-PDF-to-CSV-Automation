@@ -1,0 +1,6 @@
+Invoice_ID,Invoice_Date,Customer,Product,Quantity,Unit_Price,Total_Amount,Calculated_Amount,Amount_Match,Calculated_Subtotal,Calculated_GST,Expected_Total
+INV-2026-001,10 November 2026,ABC Learning Services,Office notebooks,50,120.0,7080.0,6000.0,True,6000.0,1080.0,7080.0
+INV-2026-002,12 November 2026,Zenith Retail Group,Wireless barcode scanners,4,5500.0,25960.0,22000.0,True,22000.0,3960.0,25960.0
+INV-2026-003,14 November 2026,PQR Food Traders,Recyclable shipping boxes,120,45.0,6372.0,5400.0,True,5400.0,972.0,6372.0
+INV-2026-004,16 November 2026,Cedar Consulting,Ergonomic office chairs,3,8250.0,29205.0,24750.0,True,24750.0,4455.0,29205.0
+INV-2026-005,18 November 2026,Riverbend Training Centre,Whiteboard marker sets,15,280.0,4956.0,4200.0,True,4200.0,756.0,4956.0
