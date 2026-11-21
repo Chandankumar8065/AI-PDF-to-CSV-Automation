@@ -1,43 +1,17 @@
 # AI PDF to CSV Automation
 
-A comparative invoice-extraction project that evaluates a traditional Python workflow against an AI-assisted workflow. Both approaches were tested on the same five synthetic invoices and compared for extracted-field agreement, financial consistency, and processing time.
+A reproducible invoice-extraction project comparing a traditional Python rules-based workflow with an AI-assisted workflow using **Qwen 2.5 1.5B Instruct**. The notebook also provides a Gradio interface for uploading text-based invoice PDFs and downloading extracted CSV data.
 
-## Project overview
+## Project workflow
 
-The notebook demonstrates a PDF-to-structured-data workflow:
-
-1. Upload and read invoice PDFs.
-2. Extract invoice fields using traditional Python and an AI language model.
-3. Convert the extracted results into Pandas DataFrames.
-4. Compare the extracted fields between methods.
-5. Validate invoice totals, including 18% GST.
-6. Check the resulting datasets for missing values and duplicate invoice IDs.
-7. Benchmark processing time and visualize the results.
-8. Export the extracted data and evaluation summaries as CSV files.
-
-## Experiment results
-
-The recorded run used five synthetic invoices.
-
-| Measure | Traditional Python | AI extraction |
-|---|---:|---:|
-| Invoices processed | 5 | 5 |
-| Field-level matches | 30 / 30 | 30 / 30 |
-| Field-level match rate | 100% | 100% |
-| Successful financial validations | 5 | 5 |
-| Failed financial validations | 0 | 0 |
-| Total revenue in validation summary | 73,573.00 | 73,573.00 |
-| Average processing time | 0.003197 seconds | 17.274078 seconds |
-
-For this specific run, traditional Python was substantially faster. The measured AI extraction time was approximately 5,403 times the traditional processing time. These timings depend on the notebook runtime and model configuration; they are not a general benchmark of all AI and Python extraction systems.
-
-## Key findings
-
-- Both methods achieved a 100% field-level match across the five tested invoices (30 field comparisons).
-- Both methods passed all five financial validation checks.
-- The financial check calculated the line-item subtotal and added 18% GST before comparing it with the invoice total.
-- Traditional Python was faster on these structured synthetic invoices in the recorded experiment.
-- Only five synthetic invoices were tested, so broader conclusions require more varied data.
+1. Generate five synthetic invoice pages with known ground-truth values.
+2. Extract invoice fields with labelled, rule-based Python parsing.
+3. Extract the same fields with Qwen.
+4. Compare both methods against the ground truth, counting missing values as mismatches.
+5. Independently validate the synthetic invoice totals using quantity × unit price × (1 + GST rate).
+6. Benchmark both methods over repeated runs.
+7. Export the datasets, field-level comparisons, financial checks, and timing results.
+8. Launch a Gradio PDF-upload interface.
 
 ## Repository structure
 
@@ -50,46 +24,46 @@ AI-PDF-to-CSV-Automation/
 │   └── AI_PDF_to_CSV_Automation.ipynb
 ├── data/
 │   ├── AI_Invoice_Extraction.csv
-│   └── Traditional_Invoice_Extraction.csv
+│   ├── Traditional_Invoice_Extraction.csv
+│   └── Ground_Truth_Invoices.csv  (generated when notebook runs)
 ├── results/
-│   ├── Extraction_Validation_Summary.csv
-│   └── Performance_Benchmark.csv
+│   ├── Field_Level_Comparison.csv (generated when notebook runs)
+│   ├── Financial_Validation.csv   (generated when notebook runs)
+│   ├── Extraction_Accuracy_Summary.csv (generated when notebook runs)
+│   └── Performance_Benchmark.csv  (generated when notebook runs)
 └── docs/
     └── RESEARCH_FINDINGS.md
 ```
 
-## How to run
+## Run the project
 
-1. Open `notebooks/AI_PDF_to_CSV_Automation.ipynb` in Google Colab or Jupyter.
-2. Install the dependencies listed in `requirements.txt` (the first notebook cell also installs the PDF and dataframe libraries used there).
-3. Run the notebook cells in order.
-4. When prompted, upload a PDF containing invoice pages in a supported text-based format.
-5. Review the extraction comparison, financial validation, benchmark charts, and exported CSV files.
+1. Open `notebooks/AI_PDF_to_CSV_Automation.ipynb` in Google Colab.
+2. Select a GPU runtime if available (a T4 or better is recommended for Qwen).
+3. Run the notebook from top to bottom. The notebook installs its dependencies and generates its own five-page synthetic test PDF; no separate sample PDF download is required.
+4. Review the comparison, financial validation, and timing outputs.
+5. Run the final Gradio launch cell to open the temporary app link.
 
-The AI workflow downloads and loads its model at runtime. Model loading may require a suitable runtime, sufficient memory, and an internet connection. The notebook was developed in Google Colab with GPU runtime metadata.
+For a local environment, install dependencies with:
 
-## Tools and technologies
+```bash
+pip install -r requirements.txt
+```
 
-- Python
-- pandas
-- PyMuPDF
-- Transformers
-- PyTorch
-- Matplotlib
-- Jupyter Notebook / Google Colab
+Then open the notebook in Jupyter. Model loading requires internet access on first run and sufficient memory. CPU inference may be slow.
 
-## Limitations and next steps
+## Evaluation and limitations
 
-- The experiment uses only five synthetic invoices.
-- Test more invoice templates, suppliers, and document layouts.
-- Evaluate scanned and lower-quality PDFs separately; text extraction alone may not work for image-only scans.
-- Repeat timing tests and report variability across runs.
-- Record the exact model version and runtime configuration for reproducibility.
-- Review AI-extracted values before using them in business or financial workflows.
+The five invoices are synthetic and use a stated 18% GST rate. Accuracy and financial checks are calculated against their known source values. Results do not establish performance on arbitrary vendor invoices. The traditional parser is label-based and may need adaptation for other layouts. The app supports text-based PDFs only; scanned/image-only PDFs require OCR. AI-extracted data must be reviewed before financial or operational use.
+
+Timing depends on hardware, runtime load, model version, and generation settings. Treat benchmark values as observations from the specific run, not universal performance claims.
+
+## Technologies
+
+Python, pandas, PyMuPDF, PyTorch, Transformers, Qwen 2.5, Matplotlib, Gradio, Jupyter / Google Colab.
 
 ## Data and responsible use
 
-The included invoice records are synthetic. Do not upload private customer invoices or commit credentials, API keys, or access tokens to this repository.
+The included research data is synthetic. Do not upload confidential customer invoices or commit credentials, API keys, access tokens, or private business documents.
 
 ## Author
 
