@@ -53,7 +53,7 @@ Then open the notebook in Jupyter. Model loading requires internet access on fir
 
 ## Evaluation and limitations
 
-The five invoices are synthetic and use a stated 18% GST rate. Accuracy and financial checks are calculated against their known source values. Results do not establish performance on arbitrary vendor invoices. The traditional parser is label-based and may need adaptation for other layouts. The app supports text-based PDFs only; scanned/image-only PDFs require OCR. AI-extracted data must be reviewed before financial or operational use.
+The five invoices are synthetic and use a stated 18% GST rate. Accuracy and financial checks are calculated against their known source values. Results do not establish performance on arbitrary vendor invoices. The traditional parser supports common inline or next-line labels (invoice number, date, customer, product, quantity, unit price, and total). Other vendor layouts may need additional label patterns. Qwen is used as a fallback for fields the rules cannot identify. The app supports text-based PDFs only; scanned/image-only PDFs require OCR. AI-extracted data must be reviewed before financial or operational use.
 
 Timing depends on hardware, runtime load, model version, and generation settings. Treat benchmark values as observations from the specific run, not universal performance claims.
 
