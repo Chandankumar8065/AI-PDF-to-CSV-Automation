@@ -2,4 +2,6 @@ pandas
 matplotlib
 PyMuPDF
 transformers
+accelerate
 torch
+gradio
